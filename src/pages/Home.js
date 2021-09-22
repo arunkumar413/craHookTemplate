@@ -9,16 +9,16 @@ export function Home(props) {
 
   const handleChange = (evt) => {
     // changeLocalStorage(evt, "state");
-    handleFormState(evt.target.name, evt.target.value)
+    handleFormState(evt.target.name, evt.target.value);
     setReRender(reRender === true ? false : true); //reredner the component
   };
 
-  function changeLocalStorage(evt, stateKey) {
-    let state = JSON.parse(localStorage.getItem(stateKey)); //get the current state
-    state[evt.target.name] = evt.target.value; //modify the state
-    let stringifedText = JSON.stringify(state); //stringify the state
-    localStorage.setItem(stateKey, stringifedText); //set the state
-  }
+  // function changeLocalStorage(evt, stateKey) {
+  //   let state = JSON.parse(localStorage.getItem(stateKey)); //get the current state
+  //   state[evt.target.name] = evt.target.value; //modify the state
+  //   let stringifedText = JSON.stringify(state); //stringify the state
+  //   localStorage.setItem(stateKey, stringifedText); //set the state
+  // }
 
   useEffect(function () {
     let appState = { name: "", city: "" };
@@ -26,11 +26,9 @@ export function Home(props) {
     localStorage.setItem("formState", JSON.stringify(appState));
   }, []);
 
-
-  function formValues(stateKey, formKey){
-    return JSON.parse(localStorage.getItem(stateKey))[formKey]
-    
-  }
+  // function formValues(stateKey, formKey) {
+  //   return JSON.parse(localStorage.getItem(stateKey))[formKey];
+  // }
 
   return (
     <div>
@@ -39,22 +37,19 @@ export function Home(props) {
 
       <input
         name="name"
-        value={JSON.parse(localStorage.getItem("state")).name}
+        // value={JSON.parse(localStorage.getItem("state")).name}
+        value={getFormState().name}
         onChange={handleChange}
       />
       <input
         name="city"
-        value={JSON.parse(localStorage.getItem("state")).city}
+        // value={JSON.parse(localStorage.getItem("state")).city}
+        value={getFormState().city}
         onChange={handleChange}
       />
 
-      <h3> {JSON.parse(localStorage.getItem("state")).name} </h3>
-      <h3> {JSON.parse(localStorage.getItem("state")).city} </h3>
-      <h1> {formValues('state','name')} </h1>
-
-      <p> {getFormState().name} </p>
-
-
+      <h1> name: {getFormState().name} </h1>
+      <h1> city: {getFormState().city} </h1>
     </div>
   );
 }
