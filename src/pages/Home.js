@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
+let appState = { name: "", city: "" };
+    localStorage.setItem("state", JSON.stringify(appState));
+    localStorage.setItem("formState", JSON.stringify(appState));
+
 export function Home(props) {
   const [reRender, setReRender] = useState(false);
   const { appState, setFormState, handleFormState, formState, getFormState } =
@@ -21,9 +25,7 @@ export function Home(props) {
   // }
 
   useEffect(function () {
-    let appState = { name: "", city: "" };
-    localStorage.setItem("state", JSON.stringify(appState));
-    localStorage.setItem("formState", JSON.stringify(appState));
+    
   }, []);
 
   // function formValues(stateKey, formKey) {
