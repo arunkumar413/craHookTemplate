@@ -3,18 +3,19 @@ import { Link } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 let appState = { name: "", city: "" };
-    localStorage.setItem("state", JSON.stringify(appState));
-    localStorage.setItem("formState", JSON.stringify(appState));
+localStorage.setItem("state", JSON.stringify(appState));
+localStorage.setItem("formState", JSON.stringify(appState));
 
 export function Home(props) {
   const [reRender, setReRender] = useState(false);
   const { appState, setFormState, handleFormState, formState, getFormState } =
     useLocalStorage();
+    console.log('render')
 
   const handleChange = (evt) => {
     // changeLocalStorage(evt, "state");
     handleFormState(evt.target.name, evt.target.value);
-    setReRender(reRender === true ? false : true); //reredner the component
+    // setReRender(reRender === true ? false : true); //reredner the component
   };
 
   // function changeLocalStorage(evt, stateKey) {
@@ -24,34 +25,62 @@ export function Home(props) {
   //   localStorage.setItem(stateKey, stringifedText); //set the state
   // }
 
-  useEffect(function () {
-    
-  }, []);
+  useEffect(function () {}, []);
 
   // function formValues(stateKey, formKey) {
   //   return JSON.parse(localStorage.getItem(stateKey))[formKey];
   // }
 
+  
+
   return (
-    <div>
-      <h2> Home</h2>
-      <Link to="/about"> About </Link>
+    <div style={{ display: "grid", gridAutoColumns: "auto", rowGap: 10 }}>
+      <input name='name' onChange={handleChange} className="input wide" />
+      <h4> {getFormState().name} </h4>
+      <input name='city' onChange={handleChange} placeholder='Name' className="bigInput roundest" />
+      <button className="btn-primary primary-filled widest">
+        {" "}
+        btn-primary widest{" "}
+      </button>
+      <button className="btn-primary primary-filled wider">
+        {" "}
+        btn-primary wider{" "}
+      </button>
+      <button className="btn-primary primary-filled wide">
+        {" "}
+        btn-primary wide{" "}
+      </button>
 
-      <input
-        name="name"
-        // value={JSON.parse(localStorage.getItem("state")).name}
-        value={getFormState().name}
-        onChange={handleChange}
-      />
-      <input
-        name="city"
-        // value={JSON.parse(localStorage.getItem("state")).city}
-        value={getFormState().city}
-        onChange={handleChange}
-      />
+      <button className="btn-primary primary-outlined wide round">
+        {" "}
+        Outlined Round{" "}
+      </button>
+      <button className="btn-secondary secondary-filled widest">
+        {" "}
+        btn-primary wider{" "}
+      </button>
 
-      <h1> name: {getFormState().name} </h1>
-      <h1> city: {getFormState().city} </h1>
+      <button className="btn-secondary secondary-filled wider">
+        {" "}
+        btn-primary wider{" "}
+      </button>
+      <button className="btn-secondary secondary-filled wide">
+        {" "}
+        btn-secondary wide{" "}
+      </button>
+
+      <button className="btn-secondary secondary-outlined round">
+        {" "}
+        Outlined Round{" "}
+      </button>
+
+      <button className="btn-secondary wider error round"> Error </button>
+      <button className="btn-secondary wider warning round"> Warning </button>
+      <button className="btn-secondary wider success round"> Warning </button>
+      <input className="input round" />
+      <input className="input round" />
+      <input className="input round" />
+      <input className="input round" />
     </div>
   );
 }
