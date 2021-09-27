@@ -13,8 +13,8 @@
 
   --button-font-weight:500;
   --button-font-size:1.2rem;
-  --button-letter-spacing:0.02rem;
-  --button-text-transform:uppsercase;
+  --button-letter-spacing:0.03rem;
+  --button-text-transform:uppercase;
 
   --error: red; 
   --warning: #ffbf00;
@@ -32,6 +32,11 @@
   --text-dark: gray;
   --text-darker: black;
   --text-darkest: black;
+
+
+  --small-input-height: 2rem;
+  --medium-input-height: 3rem;
+  --large-input-height: 4rem;
 }
 
 .btn-primary {
@@ -163,28 +168,165 @@
     padding:64px;
 }
 
+input{
+  padding-left: 1rem;
+}
 
-.input{
+.smallInput{
         outline: none;
         font-size: var(--button-font-size);
         font-weight: var(--button-font-weight);
-        height: 2rem;
-        border: solid 1px gray
+        height: var(--small-input-height);
+        border: solid 0.5px gray;
+}
+
+.mediumInput{
+  outline: none;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  height: var(--medium-input-height);
+  border: solid 0.5px gray;
+}
+
+.largeInput{
+  outline: none;
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  height: var(--large-input-height);
+  border: solid 0.5px gray;
 }
 
 input:focus{
-    border: solid 2px var(--primary);
-    
+    border: solid 1px var(--primary);
 }
 
-.bigInput{
+label{
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  letter-spacing: var(--button-letter-spacing);
+}
 
-    padding-left: 1rem;
+body{
+  background-color: #E7E9EB;
+}
 
-    outline: none;
-        font-size: var(--button-font-size);
-        font-weight: var(--button-font-weight);
-        height: 3rem;
-        border: solid 1px gray
+.inputError{
+  border: solid 1px var(--error);
+}
+
+.inputWarning{
+  border: solid 1px var(--warning);
 
 }
+
+.inputSuccess{
+  border: solid 1px var(--success);
+}
+
+input:active{
+  border-left: solid 3px red;;
+}
+input:focus{
+  border-left: solid 3px var(--primary);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.noBorder{
+  border: none;
+}
+
+.chip{
+
+
+}
+
+.IncDec[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+
+.IncDec[type=number] { 
+
+
+
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0; 
+}
+
+.inputWithIcon{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: left;
+  align-items: center;
+}
+
+.inputWithIcon > svg{
+  position: absolute;
+  margin-left:0.4rem;
+  margin-right: 0.2rem;
+  
+}
+
+.inputWithIcon > input{
+  padding-left: 5rem;
+}
+
+
+.mediumInputWithIcon{
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: left;
+  align-items: center;
+}
+
+
+.mediumInputWithIcon > input{
+  padding-left: 5rem;
+
+
+}
+
+.mediumInputWithIcon > svg{
+  position: absolute; 
+  margin-left:0.4rem;
+  margin-right: 0.2rem;
+  font-size: 2rem;
+}
+
+
+.btn-primary:active{
+
+  animation-name: example;
+  animation-duration: 4s;
+  animation-direction: reverse;
+  transition: 5s ease-in-out;
+  animation-iteration-count: 3;
+
+}
+
+input[type=number] { 
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0; 
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+}
+
+
+.numberInput{
+  display: grid;
+  grid-template-columns: 12fr 1fr 1fr;
+  
+}
+
+
+.numberInput > input{
+  border-right: none;
+}
+
+
+
