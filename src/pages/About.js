@@ -20,8 +20,8 @@ export function About(props) {
       <form
         style={{
           display: "grid",
-          gridTemplateColumns: "15rem 1fr",
-          gridGap: 4,
+          gridTemplateColumns: "1fr 5fr",
+          gridGap: 16,
           textAlign: "left",
           alignItems: "center",
           justifyContent: "space-around",
@@ -83,12 +83,31 @@ export function About(props) {
 
         <label name="inputWithIcon"> Medium Input with Icon </label>
 
+        <div style={{ display: "grid", gridTemplateColumns: "12fr 1fr 1fr" }}>
+          <input
+            placeholder="Number Input"
+            type="number"
+            className="mediumInput"
+          />
+          <button className="btn-primary primary-filled"> + </button>
+          <button className="btn-secondary secondary-filled"> - </button>
 
-        <div className="numberInput" >
-          <input type="number" className='mediumInput' />
-          <button className='btn-primary primary-filled' > + </button>
-          <button className='btn-secondary secondary-filled' > - </button>
+          <progress className="primaryProgress" id="file" value="32" max="100">
+            {" "}
+          </progress>
+
+     
         </div>
+        <div className='select'> 
+        <select >
+            <option> 1 </option>
+            <option> 2 </option>
+            <option> 3 </option>
+            <option> 4 </option>
+            <option> 5 </option>
+
+          </select>
+          </div>
       </form>
     </div>
   );

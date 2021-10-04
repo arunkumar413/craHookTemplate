@@ -2,5 +2,8 @@ export const routes = {
   home: "/home",
   about: "/about",
   contact: "/contact",
-  test:'/test'
+  test:'/test',
+  text:'/text',
+  buttons: '/buttons',
+  inputs: '/inputs'
 };
