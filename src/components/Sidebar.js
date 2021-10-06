@@ -3,12 +3,9 @@ import { Link } from "react-router-dom";
 
 
 const styles = {
-    backgroundColor: 'var(--primary-lighter',
+    backgroundColor: 'var(--primary-lightest',
     color: 'white'
 }
-
-
-
 export function Sidebar() {
   return (
     <aside style={styles}>
