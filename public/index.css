@@ -110,8 +110,6 @@
   background-color: var(--primary);
 }
 
-
-
 .btn-secondary-filled {
   padding: 1rem;
   text-align: center;
@@ -266,7 +264,7 @@ input {
   font-weight: var(--button-font-weight);
   height: var(--small-input-height);
   border: solid 1px var(--primary);
-  color:var(--primary-light);
+  color: var(--primary-light);
 }
 
 .input-small-primary:focus {
@@ -295,7 +293,6 @@ input {
 .input-large-primary:focus {
   border: solid 2px var(--primary);
 }
-
 
 .input-medium-primary-outlined {
   background-color: white;
@@ -343,9 +340,6 @@ input {
 }
 
 .input-small-secondary:focus {
-  font-size: var(--button-font-size);
-  font-weight: var(--button-font-weight);
-  height: var(--small-input-height);
   border: solid 2px var(--secondary);
 }
 
@@ -366,11 +360,11 @@ input {
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
   height: var(--large-input-height);
-  border: solid 0.5px gray;
+  border: solid 1px var(--secondary);
 }
 
 .input-large-secondary:focus {
-  border-left: solid 2px var(--secondary);
+  border: solid 2px var(--secondary);
 }
 
 label {
@@ -726,7 +720,6 @@ text-align: center;
   box-shadow: var(--article-shadow);
 }
 
-
-.remove-bottom-shadow{
+.remove-bottom-shadow {
   box-shadow: var(--shadow1);
 }

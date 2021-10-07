@@ -1,7 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import react, { useState, useEffect } from "react";
+import { Alert } from "../components/Alert";
 
 export function Inputs() {
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleFocus = (text) => {
+    navigator.clipboard.writeText(text).then(function () {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 4000);
+    });
+  };
+
   const smallInputClasses = [
     "input-small-primary",
     "input-small-primary input-success",
@@ -69,7 +81,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item}>
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -80,7 +92,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item}>
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -92,7 +104,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item}>
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -101,7 +113,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item}>
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -110,7 +122,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item} className="shadow1">
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -119,7 +131,7 @@ export function Inputs() {
     return (
       <react.Fragment key={item}>
         <p> {item} </p>
-        <input className={item} />
+        <input onFocus={() => handleFocus(item)} className={item} />
       </react.Fragment>
     );
   });
@@ -275,7 +287,7 @@ export function Inputs() {
           Large Secondary Inputs
         </h2>
 
-        {secondaryMediumElements}
+        {secondaryLargeElements}
       </article>
 
       <h2 className="color-primary"> Outlined inputs</h2>
@@ -299,6 +311,11 @@ export function Inputs() {
           <input />
         </fieldset>
       </article>
+      <Alert
+        isVisible={showAlert}
+        message="Copied the class name"
+        icon={<i class="fas fa-check"></i>}
+      />
     </div>
   );
 }

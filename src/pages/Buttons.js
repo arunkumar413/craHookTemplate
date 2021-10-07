@@ -1,6 +1,9 @@
 import react, { useState, useEffect } from "react";
+import { Alert } from "../components/Alert";
 
 export function Buttons() {
+  const [copyAlert, setCopyAlert] = useState(false);
+
   const btnPrimaryClassNames = [
     "btn-primary-filled",
     "btn-primary-outlined",
@@ -17,11 +20,34 @@ export function Buttons() {
     "btn-secondary-outlined roundest",
   ];
 
+  const handleCopy = (item) => {
+    navigator.clipboard.writeText(item);
+    setCopyAlert(true);
+    setTimeout(function () {
+      setCopyAlert(false);
+    }, 5000);
+  };
+
   const primaryElements = btnPrimaryClassNames.map(function (item, index) {
     return (
       <react.Fragment key={item}>
-        <p> {item} <i class="far fa-copy"></i> </p> 
-        <button className={item}> {item} </button>
+        <p> {item} </p>
+        <button onClick={() => handleCopy(item)} className={item}>
+          {" "}
+          {item}{" "}
+        </button>
+      </react.Fragment>
+    );
+  });
+
+  const secondaryElements = btnSecondaryClassNames.map(function (item, index) {
+    return (
+      <react.Fragment key={item}>
+        <p> {item} </p>
+        <button onClick={() => handleCopy(item)} className={item}>
+          {" "}
+          {item}{" "}
+        </button>
       </react.Fragment>
     );
   });
@@ -74,22 +100,13 @@ export function Buttons() {
           alignItems: "center",
           padding: 20,
         }}>
-        <p>btn-secondary-filled </p>
-        <button className="btn-secondary-filled">Secondary Filled </button>
-
-        <p> btn-secondary-outlined </p>
-        <button className="btn-secondary-outlined">Secondary Outlined</button>
-
-        <p> btn-secondary-outlined round </p>
-        <button className="btn-secondary-outlined round">Round</button>
-
-        <p> btn-secondary-outlined rounder </p>
-        <button className="btn-secondary-outlined rounder">rounder</button>
-
-        <p> btn-secondary-outlined roundest </p>
-        <button className="btn-secondary-outlined roundest">Roundest</button>
-        {/* {elements} */}
+        {secondaryElements}
       </article>
+      <Alert
+        message="Class name copied"
+        isVisible={copyAlert}
+        icon={<i class="fas fa-check"></i>}
+      />
     </div>
   );
 }
