@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/craHookTemplate/static/css/main.6098b298.chunk.css",
+    "main.js": "/craHookTemplate/static/js/main.276f8a83.chunk.js",
+    "main.js.map": "/craHookTemplate/static/js/main.276f8a83.chunk.js.map",
+    "runtime-main.js": "/craHookTemplate/static/js/runtime-main.3c6d5280.js",
+    "runtime-main.js.map": "/craHookTemplate/static/js/runtime-main.3c6d5280.js.map",
+    "static/js/2.ec6468f3.chunk.js": "/craHookTemplate/static/js/2.ec6468f3.chunk.js",
+    "static/js/2.ec6468f3.chunk.js.map": "/craHookTemplate/static/js/2.ec6468f3.chunk.js.map",
+    "static/js/3.a83e0055.chunk.js": "/craHookTemplate/static/js/3.a83e0055.chunk.js",
+    "static/js/3.a83e0055.chunk.js.map": "/craHookTemplate/static/js/3.a83e0055.chunk.js.map",
+    "index.html": "/craHookTemplate/index.html",
+    "static/css/main.6098b298.chunk.css.map": "/craHookTemplate/static/css/main.6098b298.chunk.css.map",
+    "static/js/2.ec6468f3.chunk.js.LICENSE.txt": "/craHookTemplate/static/js/2.ec6468f3.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/craHookTemplate/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3c6d5280.js",
+    "static/js/2.ec6468f3.chunk.js",
+    "static/css/main.6098b298.chunk.css",
+    "static/js/main.276f8a83.chunk.js"
+  ]
+}
