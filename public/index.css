@@ -533,19 +533,21 @@ p {
   font-size: 1.2rem;
 }
 
-/* progress{
+progress {
   height: 1rem;
   background-color: var(--primary);
-  border-radius : 5px;
-
-} */
+  border-radius: 5px;
+}
 
 progress[value] {
   background-color: var(--primary);
 }
 
 progress[max] {
-  background-color: var(--secondary);
+  background-color: var(--primary-lighter);
+}
+
+.progress-secondary.progress {
 }
 
 select {
@@ -708,11 +710,16 @@ aside a:hover {
 
 aside ol {
   padding: 10px;
+  text-align: left;
 }
 
-/* aside > nav{
-text-align: center;
-} */
+aside > nav {
+  text-align: center;
+}
+
+aside a {
+  text-align: left;
+}
 
 /* Shadows */
 
@@ -722,4 +729,148 @@ text-align: center;
 
 .remove-bottom-shadow {
   box-shadow: var(--shadow1);
+}
+
+.chip-primary-filled {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--primary-lighter);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: var(--primary-lighter);
+  color: var(--text-darkest);
+  width: auto;
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-secondary-filled {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--secondary-lightest);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: var(--secondary-lighter);
+  color: var(--text-darkest);
+  width: auto;
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-filled-success {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--success);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: var(--success);
+  color: var(--text-lightest);
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-filled-warning {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--warning);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: var(--warning);
+  color: var(--text-darkest);
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-filled-error {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--error);
+  border-radius: 50px;
+  font-size: 1rem;
+  background-color: var(--error);
+  color: var(--text-lightest);
+  display: inline-block;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-primary-outlined {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--primary);
+  border-radius: 50px;
+  font-size: 1rem;
+  color: var(--primary);
+  background-color: white;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+}
+
+.chip-secondary-outlined{
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--secondary);
+  border-radius: 50px;
+  font-size: 1rem;
+  color: var(--secondary);
+  background-color: white;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+
+} 
+
+.chip-outlined-success {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--success);
+  border-radius: 50px;
+  font-size: 1rem;
+  color: var(--success);
+  background-color: white;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.chip-outlined-warning {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--warning);
+  border-radius: 50px;
+  font-size: 1rem;
+  color: var(--warning);
+  background-color: white;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.chip-outlined-error {
+  outline: none;
+  padding: 0.5rem;
+  border: solid 0.5px var(--error);
+  border-radius: 50px;
+  font-size: 1rem;
+  color: var(--error);
+  background-color: white;
+  cursor: pointer;
+  width: -moz-fit-content;
+  width: fit-content;
 }

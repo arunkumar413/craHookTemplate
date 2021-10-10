@@ -7,11 +7,11 @@ export function Inputs() {
 
   const handleFocus = (text) => {
     navigator.clipboard.writeText(text).then(function () {
-      setShowAlert(true);
-      setTimeout(() => {
+     setTimeout(() => {
         setShowAlert(false);
       }, 4000);
-    });
+    });     setShowAlert(true);
+  
   };
 
   const smallInputClasses = [
@@ -147,13 +147,9 @@ export function Inputs() {
           alignItems: "center",
           columnGap: 10,
         }}>
-        <p>Reactjs</p>
 
-        <code className="color-secondary">
-          {`<input className='input-small-primary'/>`}
-        </code>
 
-        <p>HTML</p>
+        <p>Usage</p>
 
         <code className="color-secondary">
           {`<input class='input-small-primary'/>`}

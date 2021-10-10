@@ -63,13 +63,9 @@ export function Buttons() {
           alignItems: "center",
           columnGap: 10,
         }}>
-        <p>Reactjs</p>
+       
 
-        <code className="color-secondary">
-          {`<button className="btn-primary-filled rounder">Rounder</button>`}
-        </code>
-
-        <p>HTML</p>
+        <p>Usage</p>
 
         <code className="color-secondary">
           {`<button class="btn-primary-filled rounder">Rounder</button>`}

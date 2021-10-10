@@ -7,46 +7,55 @@ import { Contact } from "./pages/Contact";
 import { Home } from "./pages/Home";
 import { Inputs } from "./pages/Inputs";
 import { Test } from "./pages/Test";
-import { Text } from "./pages/Text";
+import { Typography } from "./pages/Typography";
+import {Chips}  from './pages/Chips'
+import { Progress } from "./pages/Progress";
 
 export function AppRouter() {
   return (
-      <Switch>
-        <Route exact path="/">
-          {" "}
-          <Home />{" "}
-        </Route>
+    <Switch>
+      <Route exact path="/">
+        {" "}
+        <Home />{" "}
+      </Route>
 
-        <Route path={routes.home}>
-          {" "}
-          <Home />{" "}
-        </Route>
+      <Route path={routes.home}>
+        {" "}
+        <Home />{" "}
+      </Route>
 
-        <Route path={routes.contact}>
-          {" "}
-          <Contact />{" "}
-        </Route>
+      <Route path={routes.contact}>
+        {" "}
+        <Contact />{" "}
+      </Route>
 
-        <Route path={routes.about}>
-          {" "}
-          <About />{" "}
-        </Route>
-        <Route path={routes.test}>
-          {" "}
-          <Test />{" "}
-        </Route>
-        <Route path={routes.text}>
-          {" "}
-          <Text />{" "}
-        </Route>
-        <Route path={routes.buttons}>
-          {" "}
-          <Buttons />{" "}
-        </Route>
-        <Route path={routes.inputs}>
-          {" "}
-          <Inputs />{" "}
-        </Route>
-      </Switch>
+      <Route path={routes.about}>
+        {" "}
+        <About />{" "}
+      </Route>
+      <Route path={routes.test}>
+        {" "}
+        <Test />{" "}
+      </Route>
+      <Route path={routes.typography}>
+        {" "}
+        <Typography />{" "}
+      </Route>
+      <Route path={routes.buttons}>
+        {" "}
+        <Buttons />{" "}
+      </Route>
+      <Route path={routes.inputs}>
+        {" "}
+        <Inputs />{" "}
+      </Route>
+
+      <Route path={routes.chips}>
+        <Chips/>
+      </Route>
+      <Route path={routes.progress}>
+        <Progress/>
+      </Route>
+    </Switch>
   );
 }

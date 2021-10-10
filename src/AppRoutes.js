@@ -3,7 +3,9 @@ export const routes = {
   about: "/about",
   contact: "/contact",
   test:'/test',
-  text:'/text',
+  typography:'/typography',
   buttons: '/buttons',
-  inputs: '/inputs'
+  inputs: '/inputs',
+  chips:'/chips',
+  progress:'/progress'
 };
