@@ -8,8 +8,10 @@ import { Home } from "./pages/Home";
 import { Inputs } from "./pages/Inputs";
 import { Test } from "./pages/Test";
 import { Typography } from "./pages/Typography";
-import {Chips}  from './pages/Chips'
+import { Chips } from "./pages/Chips";
 import { Progress } from "./pages/Progress";
+import { Stepper } from "./pages/Stepper";
+import { Calendar } from "./pages/Calendar";
 
 export function AppRouter() {
   return (
@@ -51,11 +53,20 @@ export function AppRouter() {
       </Route>
 
       <Route path={routes.chips}>
-        <Chips/>
+        <Chips />
       </Route>
       <Route path={routes.progress}>
-        <Progress/>
+        <Progress />
       </Route>
+      
+      <Route path={routes.stepper}>
+        <Stepper />
+      </Route>
+
+      <Route path={routes.calendar}>
+        <Calendar />
+      </Route>
+
     </Switch>
   );
 }

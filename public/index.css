@@ -533,21 +533,41 @@ p {
   font-size: 1.2rem;
 }
 
-progress {
-  height: 1rem;
-  background-color: var(--primary);
-  border-radius: 5px;
-}
-
 progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  display: inline-block;
+}
+
+/* Progress Primary */
+
+progress.progress-primary::-webkit-progress-bar {
+  background-color: var(--primary-lighter);
+  display: inline-block;
+}
+progress[value].progress-primary::-webkit-progress-value {
+  background-color: var(--primary);
+}
+progress.progress-primary::-moz-progress-bar {
   background-color: var(--primary);
 }
 
-progress[max] {
-  background-color: var(--primary-lighter);
+/* Progress Secondary */
+
+progress.progress-secondary::-webkit-progress-bar {
+  background-color: var(--secondary-lightest);
+}
+progress[value].progress-secondary::-webkit-progress-value {
+  background-color: var(--secondary);
+}
+progress.progress-secondary::-moz-progress-bar {
+  background-color: var(--secondary);
 }
 
-.progress-secondary.progress {
+progress[max].progress-secondary::-moz-progress-bar {
+  background-color: var(--secondary);
 }
 
 select {
@@ -744,7 +764,6 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
 .chip-secondary-filled {
@@ -760,7 +779,6 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
 .chip-filled-success {
@@ -775,7 +793,6 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
 .chip-filled-warning {
@@ -790,7 +807,6 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
 .chip-filled-error {
@@ -805,7 +821,6 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
 .chip-primary-outlined {
@@ -819,10 +834,9 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
 }
 
-.chip-secondary-outlined{
+.chip-secondary-outlined {
   outline: none;
   padding: 0.5rem;
   border: solid 0.5px var(--secondary);
@@ -833,8 +847,7 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
-
-} 
+}
 
 .chip-outlined-success {
   outline: none;
@@ -873,4 +886,40 @@ aside a {
   cursor: pointer;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.stepper-primary{
+  display: grid;
+  grid-template-columns: 2rem 1fr 1fr 2rem 1fr 1fr 2rem 1fr;
+  justify-content: flex-start;
+  align-items: center;
+  gap:10px;
+}
+
+.btn-stepper-primary-filled {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.3rem;
+  border: none;
+  font-size: var(--button-font-size);
+  background-color: var(--primary);
+  color:var(--text-lightest);
+}
+
+.btn-stepper-primary-normal {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.3rem;
+  border: none;
+  font-size: var(--button-font-size);
+  background-color: gray;
+  color:var(--text-lightest);
+}
+
+.stepper-seperator{
+  border: solid 1px gray;
+  height: 1px;
 }

@@ -7,5 +7,7 @@ export const routes = {
   buttons: '/buttons',
   inputs: '/inputs',
   chips:'/chips',
-  progress:'/progress'
+  progress:'/progress',
+  stepper:'/stepper',
+  calendar:'/calendar'
 };
