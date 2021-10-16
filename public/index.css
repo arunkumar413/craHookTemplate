@@ -570,22 +570,6 @@ progress[max].progress-secondary::-moz-progress-bar {
   background-color: var(--secondary);
 }
 
-select {
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  padding: 1rem;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
-  outline: none;
-}
-
-option {
-  background-color: red;
-}
-
 .select {
   display: grid;
   grid-template-areas: "select";
@@ -888,12 +872,12 @@ aside a {
   width: fit-content;
 }
 
-.stepper-primary{
+.stepper-primary {
   display: grid;
   grid-template-columns: 2rem 1fr 1fr 2rem 1fr 1fr 2rem 1fr;
   justify-content: flex-start;
   align-items: center;
-  gap:10px;
+  gap: 10px;
 }
 
 .btn-stepper-primary-filled {
@@ -905,7 +889,7 @@ aside a {
   border: none;
   font-size: var(--button-font-size);
   background-color: var(--primary);
-  color:var(--text-lightest);
+  color: var(--text-lightest);
 }
 
 .btn-stepper-primary-normal {
@@ -916,10 +900,10 @@ aside a {
   border: none;
   font-size: var(--button-font-size);
   background-color: gray;
-  color:var(--text-lightest);
+  color: var(--text-lightest);
 }
 
-.stepper-seperator{
+.stepper-seperator {
   border: solid 1px gray;
   height: 1px;
 }
