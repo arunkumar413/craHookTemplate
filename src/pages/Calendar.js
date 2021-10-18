@@ -1,8 +1,17 @@
-import React, { usState, useEffect, cloneElement, useState } from "react";
+import React, {
+  usState,
+  useEffect,
+  cloneElement,
+  useState,
+  useRef,
+} from "react";
 import { useCalendar } from "../hooks/useCalendar";
 
 export function Calendar(props) {
+  const timeElementRef = useRef(null);
+
   const {
+    days,
     view,
     changeDate,
     changeMonth,
@@ -16,12 +25,14 @@ export function Calendar(props) {
     selectedMonthEvents,
     selectedDateEvents,
     selectedYearEvents,
+    setSelectedDate,
     getEventByHour,
   } = useCalendar();
 
   const hourContainerStyle = {
     height: 60,
-    border: "solid 0.5px gray",
+    borderBottom: "solid 0.5px gray",
+    borderRight: "solid 0.5px gray",
   };
 
   const eventStyle = {
@@ -34,6 +45,11 @@ export function Calendar(props) {
     borderRadius: 5,
   };
 
+  const handleNewEvent = (evt) => {
+    ///show popup to create new event
+    console.log("create new event");
+  };
+
   const hourElements = [...Array(24).keys()].map(function (hourItem, index) {
     if (eventHours.includes(hourItem) && selectedDateEvents.length > 0) {
       let eventItem = selectedDateEvents.filter(function (item, index) {
@@ -41,19 +57,31 @@ export function Calendar(props) {
       });
 
       console.log("############### Event Item #################");
-      console.log(eventItem[0].summary);
 
-      return (
-        <div key={hourItem.toString()} id={hourItem} style={hourContainerStyle}>
-          <span className="event" style={eventStyle}>
-            {" "}
-            {eventItem[0].summary}
-          </span>
-        </div>
-      );
+      if (eventItem.length > 0) {
+        let eventElements = eventItem.map(function (item, index) {
+          return (
+            <span key={index.toString()} className="event" style={eventStyle}>
+              {" "}
+              {eventItem[0].summary}
+            </span>
+          );
+        });
+
+        return (
+          <div
+            onClick={handleNewEvent}
+            key={hourItem.toString()}
+            id={hourItem}
+            style={hourContainerStyle}>
+            {eventElements}
+          </div>
+        );
+      }
     } else {
       return (
         <div
+          onClick={handleNewEvent}
           key={hourItem.toString()}
           id={hourItem}
           style={hourContainerStyle}></div>
@@ -64,10 +92,13 @@ export function Calendar(props) {
   const timeElements = [...Array(24).keys()].map(function (item, index) {
     return (
       <div
+        ref={timeElementRef}
+        className="time-element"
         key={item.toString()}
         style={{
           height: 60,
-          border: "solid 0.5px gray",
+          borderBottom: "solid 0.5px gray",
+          borderRight: "solid 0.5px gray",
         }}>
         <span>
           {" "}
@@ -89,6 +120,14 @@ export function Calendar(props) {
     changeMonth(parseInt(evt.target.value));
   };
 
+  const decrementDate = () => {
+    setSelectedDate(selectedDate - 1);
+  };
+
+  const incrementDate = () => {
+    setSelectedDate(selectedDate + 1);
+  };
+
   function toolBar() {
     return (
       <div
@@ -96,8 +135,10 @@ export function Calendar(props) {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          justifyContent: "center",
+          justifyContent: "space-around",
           alignItems: "center",
+          gap: 10,
+          padding: 10,
         }}>
         <div>
           <select value={selectedMonth.toString()} onChange={handleMonth}>
@@ -123,24 +164,62 @@ export function Calendar(props) {
             <option value="year">Year</option>
           </select>
         </div>
-        <div>
-          <h4> {"<"} </h4>
+        <div onClick={decrementDate}>
+          {" "}
+          <i class="fas fa-chevron-left"></i>{" "}
         </div>
-        <div>
-          <h4> {">"} </h4>
+        <div onClick={incrementDate}>
+          {" "}
+          <i class="fas fa-chevron-right"></i>{" "}
         </div>
       </div>
     );
   }
 
+  function weekbar() {
+    let weekBarElements = days[0].map(function (item, index) {
+      return (
+        <div key={item.name} className="week-bar-element">
+          <span>{item.name}</span>
+        </div>
+      );
+    });
+    return weekBarElements;
+  }
+
+  useEffect(function () {
+    if (timeElementRef.current) {
+    }
+  }, []);
+
   return (
     <div>
       {toolBar()}
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          display: "grid",
+          gridTemplateColumns: `${
+            view === "week" ? "100px 1fr 1fr 1fr 1fr 1fr 1fr 1fr" : "100px 1fr"
+          }`,
+        }}>
+        {view === "week" && (
+          <div className="week-bar-element">
+            <span></span>
+          </div>
+        )}
+
+        {view === "week" && weekbar()}
+      </div>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "100px 1fr 1fr",
+          gridTemplateColumns: `${
+            view === "week" ? "100px 1fr 1fr 1fr 1fr 1fr 1fr 1fr" : "100px 1fr"
+          }`,
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
@@ -148,16 +227,73 @@ export function Calendar(props) {
         <div
           style={{
             display: "grid",
+            borderTop: "solid 0.5px gray",
           }}>
           {timeElements}
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            borderTop: "solid 0.5px gray",
+          }}>
           {hourElements}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr" }}>
-          {hourElements}
-        </div>
+
+        {view === "week" && (
+          <React.Fragment>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                borderTop: "solid 0.5px gray",
+              }}>
+              {hourElements}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </div>
   );

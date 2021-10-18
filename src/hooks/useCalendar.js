@@ -54,6 +54,13 @@ export function useCalendar(key) {
       description: "Zoom meeting for new calendar App",
       link: "",
     },
+    {
+      date: "2021-11-05T10:56:08.984Z",
+      location: "Zoom",
+      summary: "November Event",
+      description: "Zoom meeting for new calendar App",
+      link: "",
+    },
   ]);
 
   const days = useState([
@@ -187,8 +194,12 @@ export function useCalendar(key) {
   );
 
   return {
+    days,
     selectedMonth,
     selectedDate,
+    setSelectedDate,
+    setSelectedMonth,
+    setSelectedYear,
     selectedYear,
     selectedDateEvents,
     selectedMonthEvents,
