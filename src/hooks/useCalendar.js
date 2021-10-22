@@ -7,9 +7,8 @@ export function useCalendar(key) {
   const [isLeapYear, setIsLeapYear] = useState(false);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [selectedDate, setSelectedDate] = useState(
-    new Date("2021-10-05T06:56:08.984Z").getDate()
-  );
+  const [selectedDate, setSelectedDate] = useState(new Date().getDate());
+  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   const [eventHours, setEventHours] = useState([]);
   const [eventMinutes, setEventMinutes] = useState([]);
   const [selectedDateString, setSelectedDateString] = useState(
@@ -22,7 +21,7 @@ export function useCalendar(key) {
   const [selectedMonthEvents, setSelectedMonthEvents] = useState([]);
   const [selectedDateEvents, setSelectedDateEvents] = useState([]);
 
-  const [view, setView] = useState("Day");
+  const [view, setView] = useState("week");
 
   const [events, setEvents] = useState([
     {
@@ -31,6 +30,7 @@ export function useCalendar(key) {
       summary: "Zoom Meeting",
       description: "Zoom meeting for new calendar App",
       link: "",
+      isFullDayEvent: false,
     },
     {
       date: "2021-10-05T08:56:08.984Z",
@@ -38,6 +38,7 @@ export function useCalendar(key) {
       summary: "Zoom Meeting",
       description: "Zoom meeting for new calendar App",
       link: "",
+      isFullDayEvent: false,
     },
 
     {
@@ -46,6 +47,7 @@ export function useCalendar(key) {
       summary: "Zoom Meeting",
       description: "Zoom meeting for new calendar App",
       link: "",
+      isFullDayEvent: false,
     },
     {
       date: "2021-11-05T10:56:08.984Z",
@@ -53,6 +55,7 @@ export function useCalendar(key) {
       summary: "November Event",
       description: "Zoom meeting for new calendar App",
       link: "",
+      isFullDayEvent: false,
     },
     {
       date: "2021-11-05T10:56:08.984Z",
@@ -60,10 +63,11 @@ export function useCalendar(key) {
       summary: "November Event",
       description: "Zoom meeting for new calendar App",
       link: "",
+      isFullDayEvent: false,
     },
   ]);
 
-  const days = useState([
+  const [days, setDays] = useState([
     { name: "Sunday" },
     { name: "Monday" },
     { name: "Tuesday" },
@@ -73,7 +77,7 @@ export function useCalendar(key) {
     { name: "Saturday" },
   ]);
 
-  const months = useState([
+  const [months, setMonths] = useState([
     { name: "Janurary", totalDays: 31 },
     { name: "February", totalDays: isLeapYear ? 29 : 28 },
     { name: "March", totalDays: 31 },
@@ -87,6 +91,19 @@ export function useCalendar(key) {
     { name: "November", totalDays: 30 },
     { name: "December", totalDays: 31 },
   ]);
+  const [monthDays, setMonthDays] = useState([]);
+  const [selectedtWeekStart, setSelectedWeekStart] = useState(0);
+  const [selectedWeekEnd, setSelectedWeekEnd] = useState(7);
+
+  useEffect(
+    function () {
+      let m = months.map(function (item, index) {
+        return item.totalDays;
+      });
+      setMonthDays(m);
+    },
+    [selectedYear, months]
+  );
 
   useEffect(
     function () {
@@ -168,7 +185,7 @@ export function useCalendar(key) {
         return new Date(item.date).getHours() === selectedDate;
       });
     },
-    [events, [selectedDateEvents]]
+    [events, selectedDateEvents]
   );
 
   useEffect(
@@ -194,10 +211,19 @@ export function useCalendar(key) {
   );
 
   return {
+    events,
     days,
+    months,
+    monthDays,
     selectedMonth,
     selectedDate,
+    selectedDay,
+    selectedtWeekStart,
+    selectedWeekEnd,
+    setSelectedWeekStart,
+    setSelectedWeekEnd,
     setSelectedDate,
+    setSelectedDay,
     setSelectedMonth,
     setSelectedYear,
     selectedYear,

@@ -5,13 +5,22 @@ import { Alert } from "../components/Alert";
 export function Inputs() {
   const [showAlert, setShowAlert] = useState(false);
 
-  const handleFocus = (text) => {
-    navigator.clipboard.writeText(text).then(function () {
-     setTimeout(() => {
-        setShowAlert(false);
-      }, 4000);
-    });     setShowAlert(true);
-  
+  const handleFocus = async (text) => {
+    setShowAlert(true);
+
+    //  await navigator.clipboard.writeText(text).then(function () {
+    //     setTimeout(() => {
+    //       setShowAlert(false);
+    //     }, 4000);
+    //   });
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.log("couldn't copy this time");
+    }
+    setTimeout(function () {
+      setShowAlert(false);
+    }, 4000);
   };
 
   const smallInputClasses = [
@@ -147,8 +156,6 @@ export function Inputs() {
           alignItems: "center",
           columnGap: 10,
         }}>
-
-
         <p>Usage</p>
 
         <code className="color-secondary">

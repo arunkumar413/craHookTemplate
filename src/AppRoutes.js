@@ -9,5 +9,6 @@ export const routes = {
   chips:'/chips',
   progress:'/progress',
   stepper:'/stepper',
-  calendar:'/calendar'
+  calendar:'/calendar',
+  calendar2:'/calendar2'
 };

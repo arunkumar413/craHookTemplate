@@ -12,6 +12,7 @@ import { Chips } from "./pages/Chips";
 import { Progress } from "./pages/Progress";
 import { Stepper } from "./pages/Stepper";
 import { Calendar } from "./pages/Calendar";
+import { Calendar2 } from "./pages/Calendar2";
 
 export function AppRouter() {
   return (
@@ -65,6 +66,9 @@ export function AppRouter() {
 
       <Route path={routes.calendar}>
         <Calendar />
+      </Route>
+      <Route path={routes.calendar2}>
+        <Calendar2 />
       </Route>
 
     </Switch>

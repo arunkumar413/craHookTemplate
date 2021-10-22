@@ -11,6 +11,7 @@ export function Calendar(props) {
   const timeElementRef = useRef(null);
 
   const {
+    monthDays,
     days,
     view,
     changeDate,
@@ -20,12 +21,16 @@ export function Calendar(props) {
     eventHours,
     eventMinutes,
     selectedDate,
+    selectedtWeekStart,
+    selectedWeekEnd,
     selectedMonth,
     selectedYear,
     selectedMonthEvents,
     selectedDateEvents,
     selectedYearEvents,
     setSelectedDate,
+    setSelectedWeekEnd,
+    setSelectedWeekStart,
     getEventByHour,
   } = useCalendar();
 
@@ -55,8 +60,6 @@ export function Calendar(props) {
       let eventItem = selectedDateEvents.filter(function (item, index) {
         return new Date(item.date).getHours() === hourItem;
       });
-
-      console.log("############### Event Item #################");
 
       if (eventItem.length > 0) {
         let eventElements = eventItem.map(function (item, index) {
@@ -102,7 +105,9 @@ export function Calendar(props) {
         }}>
         <span>
           {" "}
-          {item <= 11
+          {item === 0
+            ? 12 + "AM"
+            : item <= 11 && item > 0
             ? item + "AM"
             : item === 12
             ? item + "PM (Noon)"
@@ -128,6 +133,16 @@ export function Calendar(props) {
     setSelectedDate(selectedDate + 1);
   };
 
+  const incrementWeek = () => {
+    setSelectedWeekStart(selectedtWeekStart + 7);
+    setSelectedWeekEnd(selectedWeekEnd + 7);
+  };
+
+  const decrementWeek = () => {
+    setSelectedWeekStart(selectedtWeekStart - 7);
+    setSelectedWeekEnd(selectedWeekEnd - 7);
+  };
+
   function toolBar() {
     return (
       <div
@@ -139,6 +154,9 @@ export function Calendar(props) {
           alignItems: "center",
           gap: 10,
           padding: 10,
+          marginBottom: 20,
+          backgroundColor: "whitesmoke",
+          borderRadius: 5,
         }}>
         <div>
           <select value={selectedMonth.toString()} onChange={handleMonth}>
@@ -157,18 +175,18 @@ export function Calendar(props) {
           </select>
         </div>
         <div>
-          <select onChange={handleView}>
+          <select value={view} onChange={handleView}>
             <option value="day">Day</option>
             <option value="week">Week</option>
             <option value="month"> Month</option>
             <option value="year">Year</option>
           </select>
         </div>
-        <div onClick={decrementDate}>
+        <div onClick={view === "week" ? decrementWeek : decrementDate}>
           {" "}
           <i class="fas fa-chevron-left"></i>{" "}
         </div>
-        <div onClick={incrementDate}>
+        <div onClick={view === "week" ? incrementWeek : incrementDate}>
           {" "}
           <i class="fas fa-chevron-right"></i>{" "}
         </div>
@@ -176,13 +194,41 @@ export function Calendar(props) {
     );
   }
 
-  function weekbar() {
-    let weekBarElements = days[0].map(function (item, index) {
+  const weekElements = monthDays.map(function (item, index) {
+    return [...Array(item).keys()].map(function (item2, index2) {
       return (
-        <div key={item.name} className="week-bar-element">
-          <span>{item.name}</span>
+        <div key={item2.name} className="week-bar-element">
+          {" "}
+          <span> {item2 + 1} </span>
         </div>
       );
+    });
+  });
+
+  debugger;
+
+  function weekbar() {
+    let weekBarElements = days.map(function (item, index) {
+      if (
+        selectedYear === new Date().getFullYear() &&
+        selectedMonth === new Date().getMonth() &&
+        selectedDate === new Date().getDate() &&
+        index === new Date().getDay()
+      ) {
+        return (
+          <div key={item.name} className="week-bar-element">
+            <span>{item.name}</span>
+            <span> {new Date().getDate()} </span>
+          </div>
+        );
+      } else {
+        return (
+          <div key={item.name} className="week-bar-element">
+            <span>{item.name}</span>
+            <span> {new Date().getDate() + 1} </span>
+          </div>
+        );
+      }
     });
     return weekBarElements;
   }
@@ -211,7 +257,9 @@ export function Calendar(props) {
           </div>
         )}
 
-        {view === "week" && weekbar()}
+        {view === "week" &&
+          weekElements.length &&
+          weekElements[9].slice(selectedtWeekStart, selectedWeekEnd)}
       </div>
 
       <div
@@ -295,6 +343,7 @@ export function Calendar(props) {
           </React.Fragment>
         )}
       </div>
+      {weekElements}
     </div>
   );
 }
