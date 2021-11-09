@@ -13,6 +13,7 @@ import { Progress } from "./pages/Progress";
 import { Stepper } from "./pages/Stepper";
 import { Calendar } from "./pages/Calendar";
 import { Calendar2 } from "./pages/Calendar2";
+import { DropDown } from "./pages/DropDown";
 
 export function AppRouter() {
   return (
@@ -59,7 +60,7 @@ export function AppRouter() {
       <Route path={routes.progress}>
         <Progress />
       </Route>
-      
+
       <Route path={routes.stepper}>
         <Stepper />
       </Route>
@@ -71,6 +72,9 @@ export function AppRouter() {
         <Calendar2 />
       </Route>
 
+      <Route path={routes.dropdown}>
+        <DropDown />
+      </Route>
     </Switch>
   );
 }

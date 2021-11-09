@@ -26,6 +26,10 @@ export function Sidebar() {
             <Link to="/progress">Progress</Link>
           </li>
           <li className="crumb">
+            <Link to="/dropdown">Drop Down</Link>
+          </li>
+
+          <li className="crumb">
             <Link to="/stepper">Stepper</Link>
           </li>
         </ol>

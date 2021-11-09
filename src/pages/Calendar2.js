@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CustomSelect } from "../components/CustomSelect";
 import { useCalendar } from "../hooks/useCalendar";
 
 const hourStyle = {
@@ -10,6 +11,7 @@ const hourStyle = {
 export function Calendar2() {
   const {
     events,
+    months,
     monthDays,
     days,
     view,
@@ -63,7 +65,14 @@ export function Calendar2() {
       ) {
         return (
           <div key={index.toString()} style={{ color: "white" }}>
-            <div style={{ backgroundColor: "blue", width: "100%" }}>
+            <div
+              className="event"
+              style={{
+                backgroundColor: "blue",
+                width: "100%",
+                marginBottom: 1,
+                fontSize: "0.8rem",
+              }}>
               {" "}
               {event.summary}
               <span></span>
@@ -75,14 +84,22 @@ export function Calendar2() {
       }
     });
   }
+  // loop through the months and their total days days
 
   const weekElements = monthDays.map(function (item1, index1) {
     return [...Array(item1).keys()].map(function (item2, index2) {
+      // loop through the total days of each month
       return (
+        // Week headers
         <div
-          key={item1.toString()+ item2}
+          key={item1.toString() + item2}
           style={{ borderBottom: "solid 1px gray", textAlign: "center" }}>
-          <div style={{ padding: 10, borderBottom: "solid 0.5px gray" }}>
+          <div
+            style={{
+              padding: 10,
+              borderBottom: "solid 0.5px gray",
+              borderLeft: "solid 0.5px gray",
+            }}>
             {" "}
             <div style={{ fontSize: 24, fontWeight: "bold" }}>
               {" "}
@@ -91,9 +108,11 @@ export function Calendar2() {
             {getDay(index2 + 1)}
           </div>
           {[...Array(24).keys()].map(function (hour, index) {
+            //loop thrugh 24 hours and create hour elements
             return (
               <div key={index.toString()} style={hourStyle}>
                 {" "}
+                {/* if for each month, date, hour there are any events create an event item */}
                 {buildEvents(item2, hour)}{" "}
               </div>
             );
@@ -102,11 +121,6 @@ export function Calendar2() {
       );
     });
   });
-
-  // const filteredWeekElements = weekElements[9][selectedDate].slice(
-  //   selectedtWeekStart,
-  //   selectedWeekEnd
-  // );
 
   const handleView = (evt) => {
     changeView(evt.target.value);
@@ -141,7 +155,7 @@ export function Calendar2() {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
           alignItems: "center",
           gap: 10,
           padding: 10,
@@ -150,7 +164,13 @@ export function Calendar2() {
           borderRadius: 5,
         }}>
         <div>
-          <select value={selectedMonth.toString()} onChange={handleMonth}>
+          <CustomSelect
+            options={months}
+            value={selectedMonth}
+            setValue={changeMonth}
+          />
+
+          {/* <select value={selectedMonth.toString()} onChange={handleMonth}>
             <option value="0">January</option>
             <option value="1">February</option>
             <option value="2">March</option>
@@ -163,15 +183,31 @@ export function Calendar2() {
             <option value="9">October</option>
             <option value="10">November</option>
             <option value="11">December</option>
-          </select>
+          </select> */}
+          {/* <CustomSelect
+            options={months}
+            value={selectedMonth}
+            setValue={changeMonth}
+          /> */}
         </div>
         <div>
-          <select value={view} onChange={handleView}>
+          <CustomSelect
+            options={[
+              { name: "Day", value: "day" },
+              { name: "Week", value: "week" },
+              { name: "Month", value: "month" },
+              { name: "Year", value: "year" },
+            ]}
+            value={view}
+            setValue={changeView}
+          />
+
+          {/* <select value={view} onChange={handleView}>
             <option value="day">Day</option>
             <option value="week">Week</option>
             <option value="month"> Month</option>
             <option value="year">Year</option>
-          </select>
+          </select> */}
         </div>
         <div onClick={view === "week" ? decrementWeek : decrementDate}>
           {" "}
@@ -235,7 +271,7 @@ export function Calendar2() {
           {timeElements}
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
-          {view === "week" &&
+          {view === 1 &&
             weekElements.length &&
             weekElements[selectedMonth].slice(
               selectedtWeekStart,

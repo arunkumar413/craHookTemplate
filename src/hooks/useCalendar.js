@@ -21,7 +21,7 @@ export function useCalendar(key) {
   const [selectedMonthEvents, setSelectedMonthEvents] = useState([]);
   const [selectedDateEvents, setSelectedDateEvents] = useState([]);
 
-  const [view, setView] = useState("week");
+  const [view, setView] = useState(1);
 
   const [events, setEvents] = useState([
     {
@@ -77,20 +77,36 @@ export function useCalendar(key) {
     { name: "Saturday" },
   ]);
 
+  // const [months, setMonths] = useState([
+  //   { name: "Janurary", totalDays: 31 },
+  //   { name: "February", totalDays: isLeapYear ? 29 : 28 },
+  //   { name: "March", totalDays: 31 },
+  //   { name: "April", totalDays: 30 },
+  //   { name: "May", totalDays: 31 },
+  //   { name: "June", totalDays: 30 },
+  //   { name: "July", totalDays: 31 },
+  //   { name: "August", totalDays: 31 },
+  //   { name: "September", totalDays: 30 },
+  //   { name: "October", totalDays: 31 },
+  //   { name: "November", totalDays: 30 },
+  //   { name: "December", totalDays: 31 },
+  // ]);
+
   const [months, setMonths] = useState([
-    { name: "Janurary", totalDays: 31 },
-    { name: "February", totalDays: isLeapYear ? 29 : 28 },
-    { name: "March", totalDays: 31 },
-    { name: "April", totalDays: 30 },
-    { name: "May", totalDays: 31 },
-    { name: "June", totalDays: 30 },
-    { name: "July", totalDays: 31 },
-    { name: "August", totalDays: 31 },
-    { name: "September", totalDays: 30 },
-    { name: "October", totalDays: 31 },
-    { name: "November", totalDays: 30 },
-    { name: "December", totalDays: 31 },
+    { name: "Janurary", value: 31 },
+    { name: "February", value: isLeapYear ? 29 : 28 },
+    { name: "March", value: 31 },
+    { name: "April", value: 30 },
+    { name: "May", value: 31 },
+    { name: "June", value: 30 },
+    { name: "July", value: 31 },
+    { name: "August", value: 31 },
+    { name: "September", value: 30 },
+    { name: "October", value: 31 },
+    { name: "November", value: 30 },
+    { name: "December", value: 31 },
   ]);
+
   const [monthDays, setMonthDays] = useState([]);
   const [selectedtWeekStart, setSelectedWeekStart] = useState(0);
   const [selectedWeekEnd, setSelectedWeekEnd] = useState(7);
@@ -98,7 +114,7 @@ export function useCalendar(key) {
   useEffect(
     function () {
       let m = months.map(function (item, index) {
-        return item.totalDays;
+        return item.value;
       });
       setMonthDays(m);
     },

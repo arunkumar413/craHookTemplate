@@ -570,35 +570,6 @@ progress[max].progress-secondary::-moz-progress-bar {
   background-color: var(--secondary);
 }
 
-.select {
-  display: grid;
-  grid-template-areas: "select";
-  width: 100%;
-  min-width: 15ch;
-  max-width: 30ch;
-  border: 1px solid var(--select-border);
-  border-radius: 0.25em;
-  padding: 0.25em 0.5em;
-  font-size: 1.25rem;
-  cursor: pointer;
-  line-height: 1.1;
-  background-color: #fff;
-  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-}
-
-.select::after {
-  content: "";
-  width: 0.8em;
-  height: 0.5em;
-  /* background-color: var(--select-arrow); */
-  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-}
-
-select,
-.select:after {
-  grid-area: select;
-}
-
 .input-lined-small {
   outline: none;
   font-size: var(--button-font-size);
@@ -871,6 +842,37 @@ aside a {
   width: -moz-fit-content;
   width: fit-content;
 }
+
+.select {
+  border: solid 1px gray;
+  height: 2rem;
+  text-align: left;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 100%;
+}
+
+.select:hover {
+  border: solid 1px blue;
+}
+
+.select-option:hover {
+  background-color: wheat;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.select * {
+  font-family: sans-serif;
+}
+
+.App {
+  font-family: sans-serif;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px;
+}
+
 
 .stepper-primary {
   display: grid;
