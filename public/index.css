@@ -845,7 +845,7 @@ aside a {
 
 .select {
   border: solid 1px gray;
-  height: 2rem;
+  height: 1.5rem;
   text-align: left;
   font-family: sans-serif;
   cursor: pointer;
@@ -856,8 +856,14 @@ aside a {
   border: solid 1px blue;
 }
 
+.select-option {
+  padding: 5px;
+  margin-bottom: 1px;
+  width: 90%;
+}
+
 .select-option:hover {
-  background-color: wheat;
+  background-color: var(--primary-lighter);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -866,13 +872,17 @@ aside a {
   font-family: sans-serif;
 }
 
+.select-options-container {
+  width: 10rem;
+  border: solid 0.5px gray;
+}
+
 .App {
   font-family: sans-serif;
   display: grid;
   grid-template-columns: auto auto;
   gap: 5px;
 }
-
 
 .stepper-primary {
   display: grid;

@@ -32,6 +32,10 @@ export function Sidebar() {
           <li className="crumb">
             <Link to="/stepper">Stepper</Link>
           </li>
+
+          <li className="crumb">
+            <Link to="/calendar2">Calendar</Link>
+          </li>
         </ol>
       </nav>
     </aside>

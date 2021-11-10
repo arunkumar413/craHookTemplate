@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { CustomSelect } from "../components/CustomSelect";
 import { useCalendar } from "../hooks/useCalendar";
 
@@ -6,6 +6,36 @@ const hourStyle = {
   borderLeft: "solid 0.5px gray",
   borderBottom: "solid 0.5px gray",
   height: 60,
+};
+
+const fullDayStyle = {
+  borderLeft: "solid 1px blue",
+  borderRight: "solid 0.5px blue",
+  backgroundColor: "var(--primary-lightest)",
+
+  borderBottom: "solid 0.5px gray",
+  height: 60,
+};
+
+const eventStyle = {
+  backgroundColor: "blue",
+  width: "100%",
+  margin: 1,
+  fontSize: "0.8rem",
+  cursor: "pointer",
+  color: "white",
+};
+
+const arrowStyle = {
+  borderRadius: 20,
+  backgroundColor: "var(--primary-lighter)",
+  cursor: "pointer",
+  width: "2rem",
+  height: '2rem',
+  textAlign:'center',
+  justifyContent:'center',
+  alignItems:'center',
+  display:'flex'
 };
 
 export function Calendar2() {
@@ -51,6 +81,52 @@ export function Calendar2() {
     ][day];
   }
 
+  function getFullDayEvent(date) {
+    let fullDayEvent = null;
+    for (let i = 0; i < events.length; i++) {
+      let eventYear = new Date(events[i].date).getFullYear();
+      let eventMonth = new Date(events[i].date).getMonth();
+      let eventDate = new Date(events[i].date).getDate();
+      let eventHour = new Date(events[i].date).getHours();
+
+      if (
+        eventYear === selectedYear &&
+        eventMonth === selectedMonth &&
+        eventDate === date &&
+        events[i].isFullDayEvent === true
+      ) {
+        fullDayEvent = events[i].summary;
+      } else {
+        fullDayEvent = "";
+      }
+    }
+
+    return fullDayEvent;
+  }
+
+  function fullDayEvents(date) {
+    let result = null;
+    for (let i = 0; i < events.length; i++) {
+      let eventYear = new Date(events[i].date).getFullYear();
+      let eventMonth = new Date(events[i].date).getMonth();
+      let eventDate = new Date(events[i].date).getDate();
+      let eventHour = new Date(events[i].date).getHours();
+
+      if (
+        eventYear === selectedYear &&
+        eventMonth === selectedMonth &&
+        eventDate === date &&
+        events[i].isFullDayEvent === true
+      ) {
+        result = true;
+      } else {
+        result = false;
+      }
+    }
+
+    return result;
+  }
+
   function buildEvents(date, hour) {
     return events.map(function (event, index) {
       let eventYear = new Date(event.date).getFullYear();
@@ -70,8 +146,9 @@ export function Calendar2() {
               style={{
                 backgroundColor: "blue",
                 width: "100%",
-                marginBottom: 1,
+                margin: 1,
                 fontSize: "0.8rem",
+                cursor: "pointer",
               }}>
               {" "}
               {event.summary}
@@ -95,10 +172,12 @@ export function Calendar2() {
           key={item1.toString() + item2}
           style={{ borderBottom: "solid 1px gray", textAlign: "center" }}>
           <div
+            className="week-header"
             style={{
               padding: 10,
               borderBottom: "solid 0.5px gray",
               borderLeft: "solid 0.5px gray",
+              height: 100,
             }}>
             {" "}
             <div style={{ fontSize: 24, fontWeight: "bold" }}>
@@ -106,11 +185,14 @@ export function Calendar2() {
               {index2 + 1}{" "}
             </div>
             {getDay(index2 + 1)}
+            <div style={eventStyle}> {getFullDayEvent(index2)} </div>
           </div>
           {[...Array(24).keys()].map(function (hour, index) {
             //loop thrugh 24 hours and create hour elements
             return (
-              <div key={index.toString()} style={hourStyle}>
+              <div
+                key={index.toString()}
+                style={fullDayEvents(item2) ? fullDayStyle : hourStyle}>
                 {" "}
                 {/* if for each month, date, hour there are any events create an event item */}
                 {buildEvents(item2, hour)}{" "}
@@ -155,22 +237,21 @@ export function Calendar2() {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr 1fr",
-          justifyContent: "space-evenly",
+          justifyContent: "center",
           alignItems: "center",
           gap: 10,
-          padding: 10,
+          padding: 5,
           marginBottom: 20,
           backgroundColor: "whitesmoke",
           borderRadius: 5,
         }}>
-        <div>
-          <CustomSelect
-            options={months}
-            value={selectedMonth}
-            setValue={changeMonth}
-          />
+        <CustomSelect
+          options={months}
+          value={selectedMonth}
+          setValue={changeMonth}
+        />
 
-          {/* <select value={selectedMonth.toString()} onChange={handleMonth}>
+        {/* <select value={selectedMonth.toString()} onChange={handleMonth}>
             <option value="0">January</option>
             <option value="1">February</option>
             <option value="2">March</option>
@@ -184,38 +265,38 @@ export function Calendar2() {
             <option value="10">November</option>
             <option value="11">December</option>
           </select> */}
-          {/* <CustomSelect
+        {/* <CustomSelect
             options={months}
             value={selectedMonth}
             setValue={changeMonth}
           /> */}
-        </div>
-        <div>
-          <CustomSelect
-            options={[
-              { name: "Day", value: "day" },
-              { name: "Week", value: "week" },
-              { name: "Month", value: "month" },
-              { name: "Year", value: "year" },
-            ]}
-            value={view}
-            setValue={changeView}
-          />
 
-          {/* <select value={view} onChange={handleView}>
+        <CustomSelect
+          options={[
+            { name: "Day", value: "day" },
+            { name: "Week", value: "week" },
+            { name: "Month", value: "month" },
+            { name: "Year", value: "year" },
+          ]}
+          value={view}
+          setValue={changeView}
+        />
+
+        {/* <select value={view} onChange={handleView}>
             <option value="day">Day</option>
             <option value="week">Week</option>
             <option value="month"> Month</option>
             <option value="year">Year</option>
           </select> */}
-        </div>
-        <div onClick={view === "week" ? decrementWeek : decrementDate}>
+        <div onClick={view === 1 ? decrementWeek : decrementDate}>
           {" "}
-          <i className="fas fa-chevron-left"></i>{" "}
+          <div style={arrowStyle}>
+            <i className="fas fa-chevron-left fa-xl"></i>{" "}
+          </div>
         </div>
-        <div onClick={view === "week" ? incrementWeek : incrementDate}>
+        <div style={arrowStyle} onClick={view === 1 ? incrementWeek : incrementDate}>
           {" "}
-          <i className="fas fa-chevron-right"></i>{" "}
+          <i className="fas fa-chevron-right fa-xl"></i>{" "}
         </div>
       </div>
     );
@@ -256,6 +337,7 @@ export function Calendar2() {
             style={{
               padding: 10,
               borderBottom: "solid 0.5px gray",
+              height: 100,
             }}>
             <div
               style={{

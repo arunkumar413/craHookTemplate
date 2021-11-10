@@ -55,7 +55,7 @@ export function useCalendar(key) {
       summary: "November Event",
       description: "Zoom meeting for new calendar App",
       link: "",
-      isFullDayEvent: false,
+      isFullDayEvent: true,
     },
     {
       date: "2021-11-05T10:56:08.984Z",
@@ -63,7 +63,7 @@ export function useCalendar(key) {
       summary: "November Event",
       description: "Zoom meeting for new calendar App",
       link: "",
-      isFullDayEvent: false,
+      isFullDayEvent: true,
     },
   ]);
 
