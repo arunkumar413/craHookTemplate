@@ -1,20 +1,23 @@
+import { func } from "prop-types";
 import React, { useState, useEffect, useRef } from "react";
 import { CustomSelect } from "../components/CustomSelect";
+import { NewEvent } from "../components/NewEvent";
 import { useCalendar } from "../hooks/useCalendar";
 
 const hourStyle = {
   borderLeft: "solid 0.5px gray",
   borderBottom: "solid 0.5px gray",
   height: 60,
+  padding: 1,
 };
 
 const fullDayStyle = {
-  borderLeft: "solid 1px blue",
-  borderRight: "solid 0.5px blue",
+  borderLeft: "solid 0.5px gray",
   backgroundColor: "var(--primary-lightest)",
 
   borderBottom: "solid 0.5px gray",
   height: 60,
+  padding: 1,
 };
 
 const eventStyle = {
@@ -31,11 +34,11 @@ const arrowStyle = {
   backgroundColor: "var(--primary-lighter)",
   cursor: "pointer",
   width: "2rem",
-  height: '2rem',
-  textAlign:'center',
-  justifyContent:'center',
-  alignItems:'center',
-  display:'flex'
+  height: "2rem",
+  textAlign: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  display: "flex",
 };
 
 export function Calendar2() {
@@ -64,6 +67,30 @@ export function Calendar2() {
     setSelectedWeekStart,
     getEventByHour,
   } = useCalendar();
+
+  const [showNewEventModal, setShowNewEventModal] = useState("none");
+
+  function decrement() {
+    if (view === 0) {
+      decrementDate();
+    } else if (view === 1) {
+      decrementWeek();
+    }
+  }
+
+  function handleNewEvent(evt) {
+    evt.stopPropagation();
+    console.log("new event");
+    setShowNewEventModal(showNewEventModal === "grid" ? "none" : "grid");
+  }
+
+  function increment() {
+    if (view === 0) {
+      incrementDate();
+    } else if (view === 1) {
+      incrementWeek();
+    }
+  }
 
   function getDay(date) {
     let year = selectedYear;
@@ -137,7 +164,8 @@ export function Calendar2() {
         eventYear === selectedYear &&
         eventMonth === selectedMonth &&
         eventDate === date &&
-        eventHour === hour
+        eventHour === hour &&
+        event.isFullDayEvent !== true
       ) {
         return (
           <div key={index.toString()} style={{ color: "white" }}>
@@ -191,6 +219,8 @@ export function Calendar2() {
             //loop thrugh 24 hours and create hour elements
             return (
               <div
+                onClick={handleNewEvent}
+                className="hour-container"
                 key={index.toString()}
                 style={fullDayEvents(item2) ? fullDayStyle : hourStyle}>
                 {" "}
@@ -251,26 +281,6 @@ export function Calendar2() {
           setValue={changeMonth}
         />
 
-        {/* <select value={selectedMonth.toString()} onChange={handleMonth}>
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">December</option>
-          </select> */}
-        {/* <CustomSelect
-            options={months}
-            value={selectedMonth}
-            setValue={changeMonth}
-          /> */}
-
         <CustomSelect
           options={[
             { name: "Day", value: "day" },
@@ -288,13 +298,13 @@ export function Calendar2() {
             <option value="month"> Month</option>
             <option value="year">Year</option>
           </select> */}
-        <div onClick={view === 1 ? decrementWeek : decrementDate}>
+        <div onClick={decrement}>
           {" "}
           <div style={arrowStyle}>
             <i className="fas fa-chevron-left fa-xl"></i>{" "}
           </div>
         </div>
-        <div style={arrowStyle} onClick={view === 1 ? incrementWeek : incrementDate}>
+        <div style={arrowStyle} onClick={increment}>
           {" "}
           <i className="fas fa-chevron-right fa-xl"></i>{" "}
         </div>
@@ -305,6 +315,7 @@ export function Calendar2() {
   const timeElements = [...Array(24).keys()].map(function (item, index) {
     return (
       <div
+        className="time-container"
         key={item.toString()}
         style={{
           height: 60,
@@ -312,6 +323,7 @@ export function Calendar2() {
           textAlign: "center",
           justifyContent: "center",
           alignItems: "center",
+          padding: 1,
         }}>
         {item === 0
           ? "12AM"
@@ -361,6 +373,7 @@ export function Calendar2() {
             )}
         </div>
       </div>
+      <NewEvent showNewEventModal={showNewEventModal} />
     </div>
   );
 }

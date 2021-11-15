@@ -55,12 +55,12 @@ export function useCalendar(key) {
       summary: "November Event",
       description: "Zoom meeting for new calendar App",
       link: "",
-      isFullDayEvent: true,
+      isFullDayEvent: false,
     },
     {
       date: "2021-11-05T10:56:08.984Z",
       location: "Zoom",
-      summary: "November Event",
+      summary: "Full Day Event",
       description: "Zoom meeting for new calendar App",
       link: "",
       isFullDayEvent: true,
@@ -76,21 +76,6 @@ export function useCalendar(key) {
     { name: "Friday" },
     { name: "Saturday" },
   ]);
-
-  // const [months, setMonths] = useState([
-  //   { name: "Janurary", totalDays: 31 },
-  //   { name: "February", totalDays: isLeapYear ? 29 : 28 },
-  //   { name: "March", totalDays: 31 },
-  //   { name: "April", totalDays: 30 },
-  //   { name: "May", totalDays: 31 },
-  //   { name: "June", totalDays: 30 },
-  //   { name: "July", totalDays: 31 },
-  //   { name: "August", totalDays: 31 },
-  //   { name: "September", totalDays: 30 },
-  //   { name: "October", totalDays: 31 },
-  //   { name: "November", totalDays: 30 },
-  //   { name: "December", totalDays: 31 },
-  // ]);
 
   const [months, setMonths] = useState([
     { name: "Janurary", value: 31 },
@@ -228,6 +213,7 @@ export function useCalendar(key) {
 
   return {
     events,
+    setEvents,
     days,
     months,
     monthDays,
