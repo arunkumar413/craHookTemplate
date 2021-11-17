@@ -92,6 +92,12 @@ export function Calendar2() {
     }
   }
 
+  useEffect(function () {
+    console.log("###############333##############33");
+    console.log(events);
+    console.log("###############333##############33");
+  }, []);
+
   function getDay(date) {
     let year = selectedYear;
     let month = selectedMonth;
@@ -191,6 +197,87 @@ export function Calendar2() {
   }
   // loop through the months and their total days days
 
+  const January = [...Array(31).keys()];
+  const February = [...Array(28).keys()];
+  const March = [...Array(31).keys()];
+  const April = [...Array(30).keys()];
+
+  const May = [...Array(31).keys()];
+
+  const June = [...Array(30).keys()];
+
+  const July = [...Array(31).keys()];
+
+  const August = [...Array(31).keys()];
+
+  const September = [...Array(30).keys()];
+
+  const October = [...Array(31).keys()];
+
+  const November = [...Array(30).keys()];
+
+  const December = [...Array(31).keys()];
+
+  const Year = January.concat(
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December
+  );
+
+  const elements = Year.map(function (day, index) {
+    return (
+      <div
+        className="week-header-item"
+        style={{
+          height: 60,
+          borderBottom: "solid 0.5px gray",
+          borderLeft: "solid 0.5px gray",
+
+          textAlign: "center",
+          padding: 1,
+        }}>
+        {" "}
+        <div
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+          }}>
+          {" "}
+          {day + 1}{" "}
+        </div>
+        {getDay(day + 1)}
+        <div style={eventStyle}> {getFullDayEvent(day + 1)} </div>
+      </div>
+    );
+  });
+
+  const hourElement = (
+    <div
+      className="week-header-item"
+      style={{
+        height: 60,
+        borderBottom: "solid 0.5px gray",
+        borderLeft: "solid 0.5px gray",
+
+        textAlign: "center",
+        padding: 1,
+      }}></div>
+  );
+
+  useEffect(function () {
+    console.log("##########Year#################3");
+    console.log(Year);
+    console.log("##########Year#################3");
+  }, []);
+
   const weekElements = monthDays.map(function (item1, index1) {
     return [...Array(item1).keys()].map(function (item2, index2) {
       // loop through the total days of each month
@@ -213,19 +300,20 @@ export function Calendar2() {
               {index2 + 1}{" "}
             </div>
             {getDay(index2 + 1)}
-            <div style={eventStyle}> {getFullDayEvent(index2)} </div>
+            <div style={eventStyle}> {getFullDayEvent(index2 + 1)} </div>
           </div>
           {[...Array(24).keys()].map(function (hour, index) {
             //loop thrugh 24 hours and create hour elements
             return (
               <div
+                id={`hour-${hour}`}
                 onClick={handleNewEvent}
                 className="hour-container"
                 key={index.toString()}
-                style={fullDayEvents(item2) ? fullDayStyle : hourStyle}>
+                style={fullDayEvents(item2 + 1) ? fullDayStyle : hourStyle}>
                 {" "}
                 {/* if for each month, date, hour there are any events create an event item */}
-                {buildEvents(item2, hour)}{" "}
+                {buildEvents(item2 + 1, hour)}{" "}
               </div>
             );
           })}
@@ -292,12 +380,6 @@ export function Calendar2() {
           setValue={changeView}
         />
 
-        {/* <select value={view} onChange={handleView}>
-            <option value="day">Day</option>
-            <option value="week">Week</option>
-            <option value="month"> Month</option>
-            <option value="year">Year</option>
-          </select> */}
         <div onClick={decrement}>
           {" "}
           <div style={arrowStyle}>
@@ -321,8 +403,6 @@ export function Calendar2() {
           height: 60,
           borderBottom: "solid 0.5px gray",
           textAlign: "center",
-          justifyContent: "center",
-          alignItems: "center",
           padding: 1,
         }}>
         {item === 0
@@ -338,42 +418,58 @@ export function Calendar2() {
     );
   });
 
+  const hourElements = [...Array(24).keys()].map(function (hour, index) {
+    return (
+      <div
+        className="time-container"
+        key={hour.toString()}
+        style={{
+          height: 60,
+          borderBottom: "solid 0.5px gray",
+          borderLeft: "solid 0.5px gray",
+
+          textAlign: "center",
+          padding: 1,
+        }}></div>
+    );
+  });
+
   return (
-    <div>
+    <div className="Calendar">
       {toolBar()}
       <div
-        className="Calendar2"
-        style={{ display: "grid", gridTemplateColumns: "100px 1fr" }}>
-        <div>
-          <div
-            style={{
-              padding: 10,
-              borderBottom: "solid 0.5px gray",
-              height: 100,
-            }}>
-            <div
-              style={{
-                visibility: "hidden",
-                fontSize: 24,
-                fontWeight: "bold",
-              }}>
-              Hour
-            </div>
-            <span style={{ visibility: "hidden" }}> s </span>
-          </div>
+        className="week-header"
+        style={{
+          marginLeft: "100px",
+          display: "grid",
 
-          {timeElements}
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
-          {view === 1 &&
-            weekElements.length &&
-            weekElements[selectedMonth].slice(
-              selectedtWeekStart,
-              selectedWeekEnd
-            )}
-        </div>
+          gridTemplateColumns: "repeat(7, 1fr)",
+        }}>
+        {elements.slice(0, 7)}
       </div>
-      <NewEvent showNewEventModal={showNewEventModal} />
+      <div
+        className="hour-container"
+        style={{
+          display: "grid",
+          marginLeft: 100,
+
+          gridTemplateColumns: "repeat(7, 1fr)",
+        }}>
+        {hourElement}
+        {hourElement}
+        {hourElement}
+        {hourElement}
+        {hourElement}
+        {hourElement}
+        {hourElement}
+
+
+      </div>
+
+      <NewEvent
+        setShowNewEventModal={setShowNewEventModal}
+        showNewEventModal={showNewEventModal}
+      />
     </div>
   );
 }

@@ -3,7 +3,13 @@ import React, { useState, useEffect } from "react";
 
 import closeButton from "../assets/xmark-solid.svg";
 import linkIcon from "../assets/link-solid.svg";
+import locationIcon from "../assets/location-dot-solid.svg";
 import { useCalendar } from "../hooks/useCalendar";
+import fileIcon from "../assets/file-lines-solid.svg";
+import headingIcon from "../assets/heading-solid.svg";
+import userIcon from "../assets/user-group-solid.svg";
+import calendarIcon from "../assets/calendar-days-solid.svg";
+import sunIcon from "../assets/cloud-sun-solid.svg";
 
 export function NewEvent(props) {
   const [guests, setGuests] = useState([]);
@@ -18,15 +24,13 @@ export function NewEvent(props) {
     guests: [],
   });
 
-  const { setEvents, events } = useCalendar();
+  const { events, setEvents, test, setTest, addNewEvent } = useCalendar();
 
   function addGuests(evt) {
     setGuests(function () {
       return [...guests, guestInput];
     });
-
     setNewEvent({ ...newEvent, guests: guests });
-
     setGuestInput("");
   }
 
@@ -35,7 +39,6 @@ export function NewEvent(props) {
   }
 
   function removeGuest(value) {
-    debugger;
     let filteredGuets = guests.filter(function (item, index) {
       return item !== value;
     });
@@ -50,14 +53,26 @@ export function NewEvent(props) {
   }
 
   function saveNewEvent(evt) {
-    console.log(events);
     setEvents(function () {
       return [...events, newEvent];
     });
   }
 
   function handleNewEvent(evt) {
-    setNewEvent({ ...newEvent, [evt.target.name]: evt.target.value });
+    if (evt.target.name === "isFullDayEvent") {
+      setNewEvent({
+        ...newEvent,
+        isFullDayEvent: newEvent.isFullDayEvent === true ? false : true,
+      });
+    } else if (evt.target.name === "date") {
+      setNewEvent({
+        ...newEvent,
+        [evt.target.name]: new Date(evt.target.value).toISOString(),
+      });
+    } else {
+      setNewEvent({ ...newEvent, [evt.target.name]: evt.target.value });
+      setTest(evt.target.value);
+    }
   }
 
   const newEventStyle = {
@@ -73,7 +88,7 @@ export function NewEvent(props) {
     gridTemplateColumns: "1fr",
     border: "solid 0.5px gray",
     gap: 10,
-    backgroundColor: "var(--primary-lightest)",
+    backgroundColor: "var(--secondary-lightest)",
   };
 
   const containerStyle = {
@@ -97,23 +112,42 @@ export function NewEvent(props) {
     [guests]
   );
 
+  useEffect(
+    function () {
+      console.log(events);
+    },
+    [events]
+  );
+
   return (
-    <div className="NewEvent" style={newEventStyle}>
+    <div className="NewEvent rounder" style={newEventStyle}>
       <div>
-        <h4> Add new event </h4>
+        <h3 className="color-primary"> Add new event </h3>
       </div>
-      <input
-        onChange={handleNewEvent}
-        name="summary"
-        className="input-small-primary"
-        placeholder="Summary"
-      />
-      <input
-        onChange={handleNewEvent}
-        name="description"
-        className="input-small-primary"
-        placeholder="Description"
-      />
+
+      <div style={containerStyle}>
+        <img style={iconStyle} src={headingIcon} alt={"heading icon"} />
+
+        <input
+          onChange={handleNewEvent}
+          name="summary"
+          className="input-small-primary round"
+          placeholder="Summary"
+        />
+      </div>
+
+      <div style={containerStyle}>
+        <img style={iconStyle} src={fileIcon} alt={"File icon"} />
+
+        <textarea
+          style={{ padding: "1rem" }}
+          rows={10}
+          cols={18}
+          onChange={handleNewEvent}
+          name="description"
+          className="input-small-primary round"
+          placeholder="Description"></textarea>
+      </div>
 
       <div style={containerStyle}>
         <img style={iconStyle} src={linkIcon} alt={"link-icon"} />
@@ -121,19 +155,19 @@ export function NewEvent(props) {
           onChange={handleNewEvent}
           name="link"
           type="URL"
-          className="input-small-primary"
+          className="input-small-primary round"
           placeholder="Link"
         />
       </div>
 
       <div style={containerStyle}>
-        <img style={iconStyle} src={linkIcon} alt={"link-icon"} />
+        <img style={iconStyle} src={locationIcon} alt={"location icon"} />
 
         <input
           onChange={handleNewEvent}
           name="location"
           type="location"
-          className="input-small-primary"
+          className="input-small-primary round"
           placeholder="Location"
         />
       </div>
@@ -145,48 +179,53 @@ export function NewEvent(props) {
           alignItems: "center",
           gap: 5,
         }}>
-        <input
-          name="guestEmail"
-          onKeyDown={handleKeyDown}
-          type="email"
-          value={guestInput}
-          onChange={handleGuestInput}
-          className="input-small-primary"
-          placeholder="Guests (add email id)"
-        />
+        <div style={containerStyle}>
+          <img style={iconStyle} src={userIcon} alt={"guests icon"} />
 
-        <button onClick={addGuests} className="btn-primary-filled">
+          <input
+            name="guestEmail"
+            onKeyDown={handleKeyDown}
+            type="email"
+            value={guestInput}
+            onChange={handleGuestInput}
+            className="input-small-primary round"
+            placeholder="Guests (add email id)"
+          />
+        </div>
+
+        <button onClick={addGuests} className="btn-primary-filled round">
           {" "}
           +{" "}
         </button>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "auto auto",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}>
+      <div style={containerStyle}>
+        <img style={iconStyle} src={calendarIcon} alt={"calendar icon"} />
+
         <input
           onChange={handleNewEvent}
           name="date"
           type="datetime-local"
-          className="input-small-primary"
+          className="input-small-primary round"
           placeholder="Enter date and time"
         />
-
-        <div className="full-day-event">
-          <label htmlFor={"isFullDayEvent"}> Is full day event </label>{" "}
-          <input
-            onChange={handleNewEvent}
-            name="isFullDayEvent"
-            type="checkbox"
-          />
-        </div>
       </div>
 
-      <div className="guest-list">
+      <div style={containerStyle} className="full-day-event">
+        <img style={iconStyle} src={sunIcon} alt={"calendar icon"} />
+        <label style={{ fontSize: 16 }} htmlFor={"isFullDayEvent"}>
+          {" "}
+          Is full day event?
+        </label>{" "}
+        <input
+          checked={newEvent.isFullDayEvent}
+          onChange={handleNewEvent}
+          name="isFullDayEvent"
+          type="checkbox"
+        />
+      </div>
+
+      <div className="guest-list" style={{ borderTop: "solid 1px gray" }}>
         <ol>
           <h5> Guests </h5>
           {guests.map(function (guest, index) {
@@ -199,6 +238,9 @@ export function NewEvent(props) {
                   justifyContent: "space-between",
                   alignItems: "center",
                   padding: 5,
+                  "&:hover": {
+                    backgroundColor: "#efefef",
+                  },
                 }}>
                 {guest}
 
@@ -221,12 +263,20 @@ export function NewEvent(props) {
           alignItems: "center",
           gap: 5,
         }}>
-        <button className="btn-secondary-filled"> Cancel </button>
+        <button
+          onClick={() => props.setShowNewEventModal("none")}
+          className="btn-secondary-filled round">
+          {" "}
+          Cancel{" "}
+        </button>
 
-        <button onClick={saveNewEvent} className="btn-primary-filled">
+        <button onClick={saveNewEvent} className="btn-primary-filled round">
           {" "}
           Save{" "}
         </button>
+        {events[5] ? events[5].summary : ""}
+        {events[6] ? events[6].summary : ""}
+
       </div>
     </div>
   );
