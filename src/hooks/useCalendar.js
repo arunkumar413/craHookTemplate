@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useDebugValue } from "react";
+import { NewEvent } from "../components/NewEvent";
 
 export function useCalendar(key) {
   const [centuryYears, setCenturyYears] = useState([
@@ -25,45 +26,53 @@ export function useCalendar(key) {
 
   const [events, setEvents] = useState([
     {
-      date: "2021-10-05T06:56:08.984Z",
+      date: "2021-11-01T06:56:08.984Z",
       location: "Zoom",
-      summary: "Zoom Meeting",
+      summary: "Event 1",
       description: "Zoom meeting for new calendar App",
       link: "",
-      isFullDayEvent: false,
+      isFullDayEvent: true,
     },
     {
-      date: "2021-10-05T08:56:08.984Z",
+      date: "2021-11-02T06:56:08.984Z",
       location: "Zoom",
-      summary: "Zoom Meeting",
+      summary: "Event 2",
       description: "Zoom meeting for new calendar App",
       link: "",
       isFullDayEvent: false,
     },
 
     {
-      date: "2021-10-05T10:56:08.984Z",
+      date: "2021-11-03T06:56:08.984Z",
       location: "Zoom",
-      summary: "Zoom Meeting",
+      summary: "Event 3",
       description: "Zoom meeting for new calendar App",
       link: "",
       isFullDayEvent: false,
     },
     {
-      date: "2021-11-05T10:56:08.984Z",
+      date: "2021-11-04T06:56:08.984Z",
       location: "Zoom",
-      summary: "November Event",
+      summary: "Event 4",
       description: "Zoom meeting for new calendar App",
       link: "",
       isFullDayEvent: false,
     },
     {
-      date: "2021-11-05T10:56:08.984Z",
+      date: "2021-11-05T06:56:08.984Z",
       location: "Zoom",
-      summary: "Full Day Event",
+      summary: "Event 5",
       description: "Zoom meeting for new calendar App",
       link: "",
       isFullDayEvent: true,
+    },
+    {
+      date: "2021-10-04T06:56:08.984Z",
+      location: "Zoom",
+      summary: "Event 4",
+      description: "Zoom meeting for new calendar App",
+      link: "",
+      isFullDayEvent: false,
     },
   ]);
 
@@ -95,6 +104,7 @@ export function useCalendar(key) {
   const [monthDays, setMonthDays] = useState([]);
   const [selectedtWeekStart, setSelectedWeekStart] = useState(0);
   const [selectedWeekEnd, setSelectedWeekEnd] = useState(7);
+  const [test, setTest] = useState("");
 
   useEffect(
     function () {
@@ -131,12 +141,28 @@ export function useCalendar(key) {
     setView(view);
   }
 
+  function addNewEvent(newEvent) {
+    setEvents(function () {
+      debugger;
+      return [...events, newEvent];
+    });
+  }
+
   function getEventByHour(hour) {
     let event = selectedDateEvents.filter(function (item, index) {
       return new Date(item.date).getHours() === hour;
     });
     return event;
   }
+
+  useEffect(
+    function () {
+      console.log("#############useCalendar#############");
+      console.log(events);
+      console.log("#############useCalendar#############");
+    },
+    [events]
+  );
 
   useEffect(
     function () {
@@ -212,8 +238,11 @@ export function useCalendar(key) {
   );
 
   return {
+    test,
+    setTest,
     events,
     setEvents,
+    addNewEvent,
     days,
     months,
     monthDays,
